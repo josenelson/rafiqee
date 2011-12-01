@@ -1,3 +1,26 @@
+<?php
+	include_once('services/config.php');
+	include_once('fb/facebook_api.php');
+
+	$logouturl = $_SESSION["logoutUrl"];
+	$loginurl = $_SESSION["loginUrl"];
+		
+	if(isLoggedin()){
+		$user = getCurrentUserInfo();
+		$user_info = getCurrentUserInfo();
+
+		$user_name = $user_info->{"name"};
+		$user_id = $user_info->{"id"};
+
+		$userImageUrl = getUserImageUrl($user_id);
+	} 
+		
+	else {
+		header("Location: " . $loginurl);
+		die();
+	}
+		
+?>
 <!DOCTYPE html>
 <html>
 <head>

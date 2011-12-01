@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $password = '';
-$database = 'samples';
+$database = 'rafiqee';
 $username = 'root';
 
 $connection = mysql_connect($host, $username, $password)  or die(mysql_error()); 
