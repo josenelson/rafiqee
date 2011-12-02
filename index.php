@@ -56,7 +56,6 @@
 						$( this ).dialog( "close" );
 						/* Create a new canvas and redirect */
 						$.getJSON('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + title.value,
-							alert(<?php echo $user_id;?>);
 							function(data){
 								window.location = './canvas.php?canvas_id=' + data;
 							}
@@ -102,6 +101,23 @@
 				$canvases = getAllUserCanvas($user_id);
 				
 				foreach($canvases[$user_id]["accesses"] as $canvas) {
+					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
+					$url =  $url . "&user_id=" . $user_id; 
+					?>
+					
+					<div class="mainpage-canvas-thumb">
+						<div><?php echo $canvas['description']; ?></div>
+						<div style="zoom:20%">
+							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" width="100px" height="100px">
+  								<p>Your browser does not support iframes.</p>
+							</iframe>
+						</div>
+						<div class="mainpage-canvas-tags">#sketching #research</div>
+					</div>	
+					<?php
+				}
+				
+				foreach($canvases[$user_id]["created"] as $canvas) {
 					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
 					$url =  $url . "&user_id=" . $user_id; 
 					?>
