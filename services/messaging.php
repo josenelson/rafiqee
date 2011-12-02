@@ -3,7 +3,7 @@
 include_once('./config.php');
 
 /* SQL Queries to be used: problem not working inside the functions */
-$SQL_SELECT_EVENTS = "SELECT * FROM events WHERE unix_timestamp > @{unix_timestamp} and user_id !=  @{user_id} and canvas_id = @{canvas_id} order by unix_timestamp desc";
+$SQL_SELECT_EVENTS = "SELECT * FROM events WHERE unix_timestamp > @{unix_timestamp} and user_id !=  @{user_id} and canvas_id = @{canvas_id} order by unix_timestamp asc";
 $SQL_INSERT_EVENT = "INSERT INTO events(event_type,canvas_id,unix_timestamp,user_id,source) VALUES(@{event_type},@{canvas_id},@{unix_timestamp},@{user_id},@{source})";
 $SQL_UPDATE_EVENT = "UPDATE events SET user_id=@{user_id}, unix_timestamp=@{unix_timestamp} WHERE event_type=@{event_type} and canvas_id=@{canvas_id} and source=@{source}";
 
