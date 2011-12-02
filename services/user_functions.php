@@ -73,3 +73,15 @@ function getDescription($canvas_id)
 		return $row["description"];
 	}
 }
+
+//Get the creator id for a given canvas
+function getCreatorId($canvas_id)
+{
+	$query = "SELECT user_id FROM canvas WHERE id=".$canvas_id;
+	$result = mysql_query($query);
+	if($result)
+	{
+		$row = mysql_fetch_assoc($result);
+		return $row["user_id"];
+	}
+}

@@ -1,6 +1,7 @@
 <?php
 	include_once('services/config.php');
 	include_once('fb/facebook_api.php');
+	include_once('./services/user_functions.php');
 
 	$logouturl = $_SESSION["logoutUrl"];
 	$loginurl = $_SESSION["loginUrl"];
@@ -24,13 +25,15 @@
 	if(!isset($_GET["canvas_id"])) die("Canvas id not set");
 	
 	$canvas_id = $_GET["canvas_id"];
-
+	$creator_id = getCreatorId($canvas_id);
+	
 		
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<title>Canvas</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<script type="text/javascript" src="./js/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript" src="./js/service-calls.js"></script>
@@ -47,6 +50,16 @@
 		<!-- Kaushal scripts -->
 		<script type="text/javascript">
 	
+		function getStyle(el,styleProp)
+		{
+	var x = document.getElementById(el);
+	if (x.currentStyle)
+		var y = x.currentStyle[styleProp];
+		else if (window.getComputedStyle)
+			var y = document.defaultView.getComputedStyle(x,null).getPropertyValue(styleProp);
+		return y;
+	}
+	
 		$(document).ready(function(){
 			
 			$("#element-accordion").accordion();
@@ -54,7 +67,7 @@
 			$( "#right-hand-canvas" ).droppable({ accept: '.movable',
 				drop: function(event, ui) {
 					
-					
+					console.log(ui);
 					
 					//create a new element with the following definitions:
 					//var newdiv = ui.draggable[0].cloneNode(true);
@@ -76,8 +89,7 @@
 					$("#right-hand-canvas")[0].appendChild(newdiv);
 								
 					newdiv.style.position = 'relative';	
-					newdiv.style.left = ((ui.offset.left * 1) - 320) + 'px'; //serious hack, do not touch
-					newdiv.style.top = ((ui.offset.top * 1) - 40) + 'px'; //serious hack, do not touch
+					newdiv.style.display = 'inline-block';
 					newdiv.style.width = ui.helper.context.clientWidth + 'px';
 					newdiv.style.height = ui.helper.context.clientHeight + 'px';
 					
@@ -103,7 +115,11 @@
 									var element_id = element_from_id(data);
 									newdiv.setAttribute('id', element_id);
 									
-									make_draggable(element_id);	
+									make_draggable(element_id);
+				
+									newdiv.left = ui.draggable[0].offsetLeft; //((ui.offset.left * 1) - 320) + 'px'; //serious hack, do not touch
+									newdiv.top = ui.draggable[0].offsetTop; //serious hack, do not touch
+
 									
 									if(issticky) makeSticky(0,0,newdiv);								
 									
@@ -204,7 +220,7 @@
 			var apiKey = '498b63b3c98a061115046a5f3d34bb79';
 			
 			
-			$.getJSON('http://flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&text='+stext+'&page='+pageid+'&per_page=10&format=json&jsoncallback=?',
+			$.getJSON('http://flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&text='+stext+'&tag='+stext+'&page='+pageid+'&per_page=10&format=json&jsoncallback=?',
 				function(data){
 					//console.log(data);
 					$.each(data.photos.photo, function(i,item){
@@ -457,11 +473,11 @@
 		</div>
 		<div id="profile">
 			<div id ="profile-picture">
-				<img src="images/profile.png"></img>
+				<?php echo '<img src="' . $userImageUrl . '"></img>'; ?>
 			</div>
 			<div id="welcome-text">
 				<p id="welcome">Welcome,</p>
-				<p id="profile-name">Kaushal Agrawal</p>
+				<p id="profile-name"><?php echo $user_name; ?></p>
 			</div>
 			<div style="clear:both;"></div>
 		</div>
@@ -543,18 +559,22 @@
 		<div id="collaborators">
 			<div id="collab-heading"><p>COLLABORATORS</p></div>
 			<div id="collab-people">
-				<img src="images/profile.png"></img>
-				<img src="images/profile.png"></img>
-				<img src="images/profile.png"></img>
-				<img src="images/profile.png"></img>
-				<img src="images/profile.png"></img>
+				<?php
+					$collabs = getCollabData($canvas_id);
+					foreach($collabs[$canvas_id] as $collab) {
+						echo '<img src="' . $collab['img'] . '"></img>';
+					
+					}
+					
+					
+				?>
 			</div>
 		</div>
 	</div>
 	<div id="right-hand-panel">
 		<div id="canvas-title-box">
-			<div id="canvas-title"><p>Which is the best restaurant in Palo Alto?</p></div>
-			<div id="canvas-added"><p>Kartikeya Dubey</p></div>
+			<div id="canvas-title"><p><?php echo getDescription($canvas_id); ?></p></div>
+			<div id="canvas-added"><p><?php echo getUserInfo($creator_id)->{'name'}; ?> </p></div>
 		</div>
 		<div id="right-hand-canvas" class="demos">
 		</div>
