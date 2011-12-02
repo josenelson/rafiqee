@@ -4,8 +4,16 @@
 	require_once('./fb/facebook_api.php');
 
 
-	$logouturl = $_SESSION["logoutUrl"];
-	$loginurl = $_SESSION["loginUrl"];
+	if(isset($_SESSION["logoutUrl"]))
+		$logouturl = $_SESSION["logoutUrl"];
+	else 
+		$logouturl = '';
+		
+		
+	if(isset($_SESSION["loginUrl"]))
+		$loginurl = $_SESSION["loginUrl"];
+	else 
+		$logouturl = '';
 		
 	if(isLoggedin()){
 		$user = getCurrentUserInfo();
@@ -49,7 +57,7 @@
 						/* Create a new canvas and redirect */
 						$.getJSON('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + title.value,
 							function(data){
-								alert('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + title.value);
+								alert();
 								window.location = './canvas.php?canvas_id=' + data;
 							}
 						)},
