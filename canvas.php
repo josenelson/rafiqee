@@ -50,20 +50,28 @@
 		$(document).ready(function(){
 			
 			$("#element-accordion").accordion();
+			$('.stickies').draggable({helper:'clone',appendTo: 'body'});
 			$( "#right-hand-canvas" ).droppable({ accept: '.movable',
 				drop: function(event, ui) {
 					
-					if(ui.draggable[0].className.indexOf('stickies')>-1){
-						
-						var sleft = ((ui.offset.left * 1) - 320);
-						var stop = ((ui.offset.top * 1) - 40);
-						var sid = ui.draggable[0].children[0].getAttribute('id');
-						makeSticky(sleft,stop,sid);
-					}
+					
+					
 					//create a new element with the following definitions:
 					//var newdiv = ui.draggable[0].cloneNode(true);
 					var newdiv = document.createElement('div');
 					newdiv.innerHTML = ui.draggable[0].innerHTML;
+					
+					var issticky = false;
+					
+					if(ui.draggable[0].className.indexOf('stickies')>-1){
+						issticky = true;
+						/*var sleft = ((ui.offset.left * 1) - 320);
+						var stop = ((ui.offset.top * 1) - 40);
+						var sid = ui.draggable[0].children[0].getAttribute('id');
+						makeSticky(sleft,stop,sid);*/
+						
+						
+					}
 					
 					$("#right-hand-canvas")[0].appendChild(newdiv);
 								
@@ -95,7 +103,9 @@
 									var element_id = element_from_id(data);
 									newdiv.setAttribute('id', element_id);
 									
-									make_draggable(element_id);									
+									make_draggable(element_id);	
+									
+									if(issticky) makeSticky(0,0,newdiv);								
 									
 								}
 					);
@@ -106,28 +116,64 @@
 			 });
 		
 		});
-	
-		function makeSticky(sleft,stop,sid){
-			notes++;
+		var notes = 0;
+		
+		function createSticky(element) {
+			alert(element.innerHTML);
+		} 
+		
+		function close(element) {
+			alert('element closed');
+		}
+		
+		function makeSticky(sleft,stop,div){
+			
+			var txtArea = document.createElement('input');
+			txtArea.setAttribute('type', 'text');
+			
+			div.appendChild(txtArea);
+			txtArea.width = '100%';
+			txtArea.height = '100%'; 
+			txtArea.focus();
+			
+			txtArea.addEventListener(
+										'blur',
+										function (e) {
+											
+											var textDiv = (div.getElementsByTagName('div')[0])/*.getElementsByTagName('div')[0]*/;
+											console.log(txtArea.value);
+											//console.log(textDiv);
+											textDiv.innerHTML += txtArea.value;
+											
+											div.removeChild(txtArea);
+										},
+										true
+										);
+			
+			
+			
+			/*notes++;
 			var html="<div id=\"notes-"+notes+"\"style=\"width:200px;height:220px;position:relative;left:"+sleft+";top:"+stop+";\">";
 			html +="<div id="+sid+">";
 			if(sid=="yellowSticky")
-				html+="<div class=\"stickyHandle\" id=\"yellowHandle\"></div>";
+				html+="<div class=\"stickyHandle\" id=\"yellowHandle\">@{text}</div>";
 			if(sid=="blueSticky")
-				html+="<div class=\"stickyHandle\" id=\"blueHandle\"></div>";
+				html+="<div class=\"stickyHandle\" id=\"blueHandle\">@{text}</div>";
 			if(sid=="pinkSticky")
-				html+="<div class=\"stickyHandle\" id=\"pinkHandle\"></div>";
+				html+="<div class=\"stickyHandle\" id=\"pinkHandle\">@{text}</div>";
 			if(sid=="greenSticky")
-				html+="<div class=\"stickyHandle\" id=\"greenHandle\"></div>";
+				html+="<div class=\"stickyHandle\" id=\"greenHandle\">@{text}</div>";
 			html += "<div class=\"stickyText\">";
 			html += "<textarea name=\"stickme\" style=\"max-width: 180px;min-width: 180px;\" cols=\"30\" rows=\"5\" onkeypress=\"return checkEnter('notes-"+notes+"',"+sleft+","+stop+",event,this)\"></textarea>";
 			html += "</div></div></div>"
-			$('#right-hand-canvas').append(html);
+			div.innerHTML = html;
+			//$('#right-hand-canvas').append(html);
 			$('#right-hand-canvas').find('#notes-'+notes).find('textarea[name=stickme]').focus();
 			$('#right-hand-canvas').find('#notes-'+notes).find('textarea[name=stickme]').blur(function() {
-				console.log("here");
   				$('#notes-'+notes).remove();
-			});
+  				//($("#" + sid)[0]).innerHTML = ($("#" + sid)[0]).innerHTML.replace('@{text}', 'sdfgsg');
+  				//$("#" + sid)[0].innerText = 'skgjdlkjglkdfjglk';
+			});*/
 
 				
 		}
