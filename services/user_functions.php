@@ -38,8 +38,8 @@ function getAllUserCanvas($userid)
 		{
 			//Store the id and description
 			$temp = array();
-			$temp["canvasid"] = $row["canvasid"];
-			$temp["description"] = getDescription($row["canvasid"]);
+			$temp["canvas_id"] = $row["canvasid"];
+			$temp["description"] = getDescription($row["canvas_id"]);
 			array_push($canvasList[$userid]["accesses"], $temp);
 		}
 	}
@@ -58,7 +58,7 @@ function getAllUserCanvas($userid)
 		while($row = mysql_fetch_assoc($result))
 		{
 			$temp = array();
-			$temp["canvasid"] = $row["canvasid"];
+			$temp["canvas_id"] = $row["canvasid"];
 			$temp["description"] = $row["description"];
 			array_push($canvasList[$userid]["created"], $temp);
 			//array_push($canvasList[$userid]["created"]["description"], $row["description"]);
@@ -71,9 +71,9 @@ function getAllUserCanvas($userid)
 /**
  * Get the description for a given canvas id
  */
-function getDescription($canvasid)
+function getDescription($canvas_id)
 {
-	$query = "SELECT description FROM canvas WHERE canvasid =".$canvasid;
+	$query = "SELECT description FROM canvas WHERE canvasid =".$canvas_id;
 	$result = mysql_query($query);
 	if($result)
 	{
