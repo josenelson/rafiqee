@@ -51,7 +51,7 @@ div#create-new{
 div#create-new-header{background-color: rgba(140,140,140,0.9);}
 div#create-new-header p{color:white;padding:3px;}
 div#create-form{padding:5px;background: url('images/accord-back.png') repeat;}
-div#form-controls{text-align: right;}
+div#form-controls{text-align: right; padding-top: 5px;}
 
 div#created-div{
 	border:1px solid rgba(74,160,82,0.9);
@@ -136,10 +136,9 @@ div.canvas-description p{
 }
 
 .mainpage-canvasframe {
-	width: 100px; 
-	height: 100px;
-	overflow: hidden;
-	 -moz-transform: scale(0.20);
+	width: 200px;
+	height: 200px;
+	overflow:hidden;
 }
 
 /**************************/

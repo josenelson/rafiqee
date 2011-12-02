@@ -11,17 +11,27 @@
 <html>
 	<head>
 		<title>Drag and drop samples</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<script type="text/javascript" src="./js/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript" src="./js/service-calls.js"></script>
 		<script type="text/javascript" src="./js/event-api.js"></script>
 		<link href="css/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 		<style>
 			#draggable1, #draggable2 { width: 150px; height: 150px; padding: 0.5em; }
+			body 
+			{
+				overflow:hidden;
+			}
 		</style>
 		<script>
+			function finish_callback(element_id) {
+			
+			}
 			/*
 			*	Makes a element with a given
 			*	id draggable in its container
@@ -47,7 +57,9 @@
 			}
 
 
-			load_elements('container', <?php echo $canvas_id; ?>,  <?php echo $user_id; ?>, make_draggable);
+			load_elements('container', <?php echo $canvas_id; ?>,  <?php echo $user_id; ?>, make_draggable, finish_callback);
+			
+			document.body.style.zoom="15%"
 		</script>
 		<div id="container" class="demos">
 	

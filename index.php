@@ -86,7 +86,7 @@
 						echo "<p>WHATS NEW?</p>";
 						echo "</div>";
 						echo "<div id=\"create-form\">";
-						echo "<textarea name=\"desc\" style=\"max-width: 180px;min-width: 180px;\" cols=\"30\" rows=\"5\"></textarea>";
+						echo "<textarea name=\"desc\" style=\"max-width: 99%;min-width: 99%;\" cols=\"30\" rows=\"5\"></textarea>";
 						echo "<div id=\"form-controls\"><Button onclick=\"addNewCanvas()\">POST</Button></div>";
 						echo "</div>";
 					echo "</div>";
@@ -94,13 +94,13 @@
 				echo "<div id=\"created-canvases-header\"><p>CREATED</p></div>";
 				echo "<div id=\"created-canvases\">";
 				foreach($canvases[$user_id]["created"] as $canvas) {
-					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
+					$url = './canvas-preview.php?user_id=1&canvas_id=' . $canvas['canvas_id'];
 					$url =  $url . "&user_id=" . $user_id; 
 					?>
 					<a href="canvas.php?canvas_id=<?php echo $canvas['canvas_id'];?>" style="display:block;">
 					<div class="mainpage-canvas-thumb">	
-						<div style="zoom:20%">
-							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" width="100px" height="100px">
+						<div>
+							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>">
   								<p>Your browser does not support iframes.</p>
 							</iframe>
 						</div>
@@ -116,19 +116,20 @@
 				echo "<div id=\"access-canvases-header\"><p>ACCESS</p></div>";
 				echo "<div id=\"access-canvases\">";
 				foreach($canvases[$user_id]["accesses"] as $canvas) {
-					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
+					$url = './canvas-preview.php?user_id=1&canvas_id=' . $canvas['canvas_id'];
 					$url =  $url . "&user_id=" . $user_id; 
 					?>
-					
+					<a href="canvas.php?canvas_id=<?php echo $canvas['canvas_id'];?>" style="display:block;">
 					<div class="mainpage-canvas-thumb">
 						
-						<div style="zoom:20%">
-							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" width="100px" height="100px">
+						<div>
+							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" style="overflow:hidden" >
   								<p>Your browser does not support iframes.</p>
 							</iframe>
 						</div>
 						<div><?php echo $canvas['description']; ?></div>
 					</div>	
+					</a>
 					<?php
 				}
 				echo "<div style=\"clear:both;\"></div>";

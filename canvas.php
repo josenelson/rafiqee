@@ -467,8 +467,8 @@
 	<div id="left-hand-panel">
 		<div id="navigation">
 			<ul>
-				<li><a href="#">HOME</a>&nbsp;|</li>
-				<li><a href="#">SIGN OUT</a></li>
+				<li><a href="index.php">HOME</a>&nbsp;|</li>
+				<li><a href="<?php echo $logoutUrl;?>">SIGN OUT</a></li>
 			</ul>
 		</div>
 		<div id="profile">
