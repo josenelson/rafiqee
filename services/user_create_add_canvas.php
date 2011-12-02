@@ -4,7 +4,7 @@
  * @param user_id of the user who created the canvas
  */
 include_once("./config.php");
-
+include_once("./add_user_access.php");
 $user_id = isset($_GET["user_id"])? $_GET["user_id"]:json_die("user id is not set");
 $description = isset($_GET["description"])? $_GET["description"]:json_die("description not set");
 
@@ -16,7 +16,10 @@ $query .=")";
 $result = mysql_query($query);
 if($result) 
 {
-	echo json_encode(mysql_insert_id());	
+
+	$insertId = mysql_insert_id();
+	addToHasCanvas($user_id, $insertId);
+	echo json_encode($insertId);	
 }
 else
 {
