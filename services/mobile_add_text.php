@@ -4,9 +4,9 @@
  */
 include_once("./config.php");
 
-$userid = isset($_GET["userid"])? $_GET["userid"]:json_die("userid not set");
-$canvasid = isset($_GET["canvasid"])? $_GET["canvasid"]:json_die("canvasid not set");
-$content = isset($_GET["content"])? $_GET["content"]:json_die("text not set");
+$userid = isset($_POST["userid"])? $_POST["userid"]:json_die("userid not set");
+$canvasid = isset($_POST["canvasid"])? $_POST["canvasid"]:json_die("canvasid not set");
+$content = isset($_POST["content"])? $_POST["content"]:json_die("text not set");
 
 $query = "INSERT INTO elements(user_id, canvas, content, styles) VALUES(";
 $query .= $userid.",";
