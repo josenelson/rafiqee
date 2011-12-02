@@ -42,97 +42,98 @@
 	<script type="text/javascript" src="./js/event-api.js"></script>
 	<link href="css/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
 	<link href="css/mainpage.css" rel="stylesheet" type="text/css" />
-	<body>
-		<script>
-		$(function() {
-			// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
-			$( "#dialog:ui-dialog" ).dialog( "destroy" );
+	<script type="text/javascript">
+		function addNewCanvas(){
+			var value = $('div#create-new').find('textarea[name=desc]').val();
+			if(value!=""){
+				$.getJSON('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + value,
+					function(data){
+						window.location = './canvas.php?canvas_id=' + data;
+				});
+			}
 			
-			$( "#dialog-message" ).dialog({
-				autoOpen: false,
-				modal: true,
-				buttons: {
-					Ok: function() {
-						$( this ).dialog( "close" );
-						/* Create a new canvas and redirect */
-						$.getJSON('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + title.value,
-							function(data){
-								window.location = './canvas.php?canvas_id=' + data;
-							}
-						)},
-					Cancel:  function() {
-						$( this ).dialog( "close" );
-					}
-				}
-			});
-		});
-		
-		function create_canvas() {
-			$( "#dialog-message" ).dialog( "open" );
 		}
-		
-		</script>
-		<div id="dialog-message" title="Download complete">
-			<form>
-				<fieldset>
-					<label for="name">Title</label>
-					<input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all" />
-				</fieldset>
-			</form>
-		</div>
-
-
+	</script>
+	<body>
 		<div class="mainpage-header">
-			<div class="mainpage-userimage">
-        				<img src="<?php echo $userImageUrl;?>" />
-       		</div>
-        	<div class="mainpage-userinfo">
-        		Welcome, <?php echo $user_name;?> <a href="<?php echo $logouturl; ?>">Logout</a>
-        		<script>
-        			console.log('user id:' + <?php echo $user_id;?>);	
-        		</script>	
-        	</div>
-        	<div class="mainpage-createcanvas" onclick="create_canvas()">
-        		New
-        	</div>
+			
+			<div id="profile">
+				<div id ="profile-picture">
+					<img src="<?php echo $userImageUrl;?>"></img>
+				</div>
+				<div id="welcome-text">
+					<p id="welcome">Welcome,</p>
+					<p id="profile-name"><?php echo $user_name;?></p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div id="logo">
+				<img src="images/logo.png">
+				<div id="navigation">
+				<ul>
+					<li><a href="<?php echo $logouturl; ?>">SIGN OUT</a></li>
+				</ul>
+			</div>
+			</div>
+        	<div style="clear:both;"></div>
 		</div>
 		<div class="mainpage-central-content">
 			<?php 
 				$canvases = getAllUserCanvas($user_id);
-				
+				echo "<div id=\"left-main-div\">";
+					echo "<div id=\"create-new\">";
+						echo "<div id=\"create-new-header\">";
+						echo "<p>WHATS NEW?</p>";
+						echo "</div>";
+						echo "<div id=\"create-form\">";
+						echo "<textarea name=\"desc\" style=\"max-width: 180px;min-width: 180px;\" cols=\"30\" rows=\"5\"></textarea>";
+						echo "<div id=\"form-controls\"><Button onclick=\"addNewCanvas()\">POST</Button></div>";
+						echo "</div>";
+					echo "</div>";
+				echo "<div id=\"created-div\">";
+				echo "<div id=\"created-canvases-header\"><p>CREATED</p></div>";
+				echo "<div id=\"created-canvases\">";
+				foreach($canvases[$user_id]["created"] as $canvas) {
+					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
+					$url =  $url . "&user_id=" . $user_id; 
+					?>
+					<a href="canvas.php?canvas_id=<?php echo $canvas['canvas_id'];?>" style="display:block;">
+					<div class="mainpage-canvas-thumb">	
+						<div style="zoom:20%">
+							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" width="100px" height="100px">
+  								<p>Your browser does not support iframes.</p>
+							</iframe>
+						</div>
+						<div class="canvas-description"><?php echo "<p>".$canvas['description']."</p>"; ?></div>
+					</div>	
+					</a>
+					<?php
+				}
+				echo "<div style=\"clear:both;\"></div>";
+				echo "</div></div>";
+				echo "</div>";
+				echo "<div id=\"access-div\">";
+				echo "<div id=\"access-canvases-header\"><p>ACCESS</p></div>";
+				echo "<div id=\"access-canvases\">";
 				foreach($canvases[$user_id]["accesses"] as $canvas) {
 					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
 					$url =  $url . "&user_id=" . $user_id; 
 					?>
 					
 					<div class="mainpage-canvas-thumb">
-						<div><?php echo $canvas['description']; ?></div>
+						
 						<div style="zoom:20%">
 							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" width="100px" height="100px">
   								<p>Your browser does not support iframes.</p>
 							</iframe>
 						</div>
-						<div class="mainpage-canvas-tags">#sketching #research</div>
+						<div><?php echo $canvas['description']; ?></div>
 					</div>	
 					<?php
 				}
+				echo "<div style=\"clear:both;\"></div>";
+				echo "</div></div>";
 				
-				foreach($canvases[$user_id]["created"] as $canvas) {
-					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
-					$url =  $url . "&user_id=" . $user_id; 
-					?>
-					
-					<div class="mainpage-canvas-thumb">
-						<div><?php echo $canvas['description']; ?></div>
-						<div style="zoom:20%">
-							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" width="100px" height="100px">
-  								<p>Your browser does not support iframes.</p>
-							</iframe>
-						</div>
-						<div class="mainpage-canvas-tags">#sketching #research</div>
-					</div>	
-					<?php
-				}
 			?>
 				
 		</div>

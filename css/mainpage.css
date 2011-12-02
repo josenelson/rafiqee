@@ -1,73 +1,91 @@
-body {
-	background: #D8D8D8;
+body{
+	margin: 0;
+	padding:0;
+	width:100%;
+	height:100%;
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+	background:url('../images/graphy.png');
+
 }
 
-/***** Styles for left navigation menu *********/
-div.main-name {
-	text-align: right;
-	font-size: 26px;
-	font-family: "Myriad Web Pro", sans-serif;
-	color: #797979;
-	padding-right: 10px;
-}
+p{margin:0;padding:0;}
+ul{padding:0;margin:0;list-style: none;}
+a{text-decoration:none;}
+img{border:none;}
 
-div.main-tags {
-	text-align: right;
-	font-size: 14px;
-	font-family: "Myriad Web Pro", sans-serif;
-	font-style: italic;
-	color: #CD0061;
-	padding-right: 10px;
-	padding-bottom: 20px;
-}
+div#profile{margin-top:20px;margin-left:20px;float:left;}
+div#profile-picture{float:left;}
+div#welcome-text{float:left;margin-left:5px;color:#767676;font-size:0.9em;}
+p#welcome{font-size:0.9em;}
+p#profile-name{color:#4AA052;font-weight: bold;text-transform: uppercase;}
 
-div.title-name {
-	text-align: left;
-	font-size: 26px;
-	font-family: "Myriad Web Pro", sans-serif;
-	color: #797979;
-	padding-right: 10px;
-}
-
-
-/* This is the left bar */
-div.navigation {
-	position: fixed;
-	/* Give an all around 10px margin */
-	/*top: 20px;
-	bottom: 20px;
-	left: 20px;*/
-	left: 0px;
-	top: 0px;
-	bottom: 0px;
-	width: 198px;
-	color: black;
-	background: #F7F6F6;
-	border-right: 2px solid #CD0061;
+div#logo{float:right;text-align: right;margin-right:20px;}
+div#navigation{margin-top:10px;}
+div#navigation ul{font-size:0.8em;}
+div#navigation ul li{
 	display: inline;
 }
-/****************************************/
+div#navigation ul li a{
+	color:#784775;
+}
+
+
+div#left-main-div{
+	width:46%;
+	height:auto;
+	float:left;
+}
+
+div#access-div{
+	width:50%;
+	height:auto;
+	float:left;
+}
+
+div#create-new{
+	border:1px solid rgba(140,140,140,0.9);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	font-size:0.9em;
+}
+div#create-new-header{background-color: rgba(140,140,140,0.9);}
+div#create-new-header p{color:white;padding:3px;}
+div#create-form{padding:5px;background: url('images/accord-back.png') repeat;}
+div#form-controls{text-align: right;}
+
+div#created-div{
+	border:1px solid rgba(74,160,82,0.9);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	margin-top:10px;
+}
+div#created-canvases-header{background-color: rgba(74,160,82,0.9);}
+div#created-canvases-header p{color:white;padding:3px;font-size:0.9em;}
+div#created-canvases{background: url('images/accord-back.png') repeat;padding-top:10px;padding-left:10px;}
+div#access-div{
+	border:1px solid rgba(157,54,146,.9);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	margin-left:10px;
+}
+div#access-canvases-header{background-color: rgba(157,54,146,.9);}
+div#access-canvases-header p{color:white;padding:3px;}
+div#access-canvases{
+	background: url('images/accord-back.png') repeat;
+	padding-top: 10px;
+	padding-left: 10px;
+}
 
 /* This is the content on the right */
 div.mainpage-central-content {
-   	position:fixed;
-   	/* Give an all around 10px margin */
-   	/*top: 20px;*/
-   	right: 20px;
-   	bottom: 0px;
-   	top:70px;
-   	height: 100%;
-   	padding-left: 10px;
-   	left: 20px;
-   	display: inline;
+   padding-left:20px;
+   padding-right:20px;
+   margin-top:10px;
+    
 }
 
 div.mainpage-header {
-	position:fixed;
-   	right: 10px;
-   	left: 20px;
-   	height: 50px;
-   	display: inline;
+	
 }
 
 div.mainpage-createcanvas {
@@ -91,7 +109,6 @@ div.mainpage-userimage {
 div.mainpage-userinfo {
 	float: left;
 	position: relative;
-	bottom: 0px;
 }
 
 div.mainpage-canvas-thumb {
@@ -100,11 +117,10 @@ div.mainpage-canvas-thumb {
 	float: left;
 	margin: 0 10px 10px 0px;
 	position: relative;
-	color: #797979;
+	color: #9d3692;
 	text-align: left;
 	font-size: 14px;
-   	font-family:  "Myriad Web Pro", Helvetica, Arial, Sans-Serif;
-	border: 10px solid white;
+	padding:10px;
 	background: white;
 	-moz-box-shadow: 0px 1px 10px rgba(100,100,100,.3);
 	-webkit-box-shadow: 0px 1px 10px rgba(100,100,100,.3);
@@ -114,9 +130,14 @@ div.mainpage-canvas-thumb {
 	-webkit-border-radius: 1px;
 }
 
+div.canvas-description p{
+	text-transform: uppercase;
+	font-size:0.9em;
+}
+
 .mainpage-canvasframe {
-	width: 1024px; 
-	height: 768px;
+	width: 100px; 
+	height: 100px;
 	overflow: hidden;
 	 -moz-transform: scale(0.20);
 }
