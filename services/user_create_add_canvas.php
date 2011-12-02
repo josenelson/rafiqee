@@ -16,7 +16,7 @@ $query .=")";
 $result = mysql_query($query);
 if($result) 
 {
-	echo json_encode("success");	
+	echo json_encode(mysql_insert_id());	
 }
 else
 {
