@@ -31,7 +31,7 @@ foreach($events["events"] as $event)
 {
 	switch ($event['event_type'])
 	{
-	case 1: 
+	case 1: break; 
 	case 2: 
 	case 3: 
 	case 4:

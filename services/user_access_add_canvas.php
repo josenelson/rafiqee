@@ -7,12 +7,12 @@
 
 include_once("./config.php");
 
-$userid = isset($_POST["userid"])? $_POST["userid"]:json_die("userid not set");
-$canvasid = isset($_POST["canvasid"])? $_POST["canvasid"]:json_die("canvasid not set");
+$user_id = isset($_POST["user_id"])? $_POST["user_id"]:json_die("user_id not set");
+$canvas_id = isset($_POST["canvas_id"])? $_POST["canvas_id"]:json_die("canvas_id not set");
 
-$query = "INSERT INTO userhascanvas(userid, canvasid) VALUES(";
-$query .= $userid.",";
-$query .= $canvasid;
+$query = "INSERT INTO userhascanvas(user_id, canvas_id) VALUES(";
+$query .= $user_id.",";
+$query .= $canvas_id;
 $query .= ")";
 
 $result = mysql_query($query);

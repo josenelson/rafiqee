@@ -1,16 +1,16 @@
 <?php
 /**
  * Add a canvas in the database
- * @param user_id of the user who created the canvas
+ * @param userid of the user who created the canvas
  */
 include_once("./config.php");
 
-$user_id = isset($_POST["user_id"])? $_POST["user_id"]:json_die("user id is not set");
+$userid = isset($_POST["userid"])? $_POST["userid"]:json_die("user id is not set");
 $description = isset($_POST["description"])? $_POST["description"]:json_die("description not set");
 
-$query = "INSERT INTO canvas(description, user_id) VALUES('".
+$query = "INSERT INTO canvas(description, userid) VALUES('".
 $query .= $description."',";
-$query .= $user_id;
+$query .= $userid;
 $query .=")";
 
 $result = mysql_query($query);
