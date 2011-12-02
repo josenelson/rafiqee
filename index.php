@@ -56,7 +56,6 @@
 						$( this ).dialog( "close" );
 						/* Create a new canvas and redirect */
 						$.getJSON('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + title.value,
-							alert(<?php echo $user_id;?>);
 							function(data){
 								window.location = './canvas.php?canvas_id=' + data;
 							}
