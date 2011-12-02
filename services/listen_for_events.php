@@ -16,7 +16,7 @@ $timestamp = isset($_GET["timestamp"])? $_GET["timestamp"]:die("timestamp not se
 
 $events = wait_for_events($canvas_id, $user_id, $timestamp);
 
-/*	Needs to iterate trough events, 
+/*	Needs to iterate through events, 
 *	check event type and source, and attach appropriate data.
 *
 *	Eg. foreach($events['events'] as $event) {

@@ -30,6 +30,18 @@ function load_elements(container_id, canvas_id, user_id, element_callback, finis
 
 }
 
+function set_styles(element, styles, values) {
+	for(var i  = 0; i < styles.length; i++) {
+		element.style[$.trim(styles[i])] = $.trim(values[i]);
+	}
+}
+
+function set_properties(element, properties, values) {
+	for(var i  = 0; i < properties.length; i++) {
+		newdiv.setAttribute($.trim(properties[i]), $.trim(values[i]));
+	}
+}
+
 
 /*
 *	Returns a associative array of styles

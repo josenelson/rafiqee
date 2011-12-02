@@ -50,10 +50,49 @@
 		$(document).ready(function(){
 			
 			$("#element-accordion").accordion();
-			$( "#right-hand-panel" ).droppable({ accept: '.movable',
+			$( "#right-hand-canvas" ).droppable({ accept: '.movable',
 				drop: function(event, ui) {
-				
-					console.log("Dropped");
+
+					//create a new element with the following definitions:
+					//var newdiv = ui.draggable[0].cloneNode(true);
+					var newdiv = document.createElement('div');
+					newdiv.innerHTML = ui.draggable[0].innerHTML;
+					
+					$("#right-hand-canvas")[0].appendChild(newdiv);
+								
+					newdiv.style.position = 'absolute';	
+					newdiv.style.left = ((ui.offset.left * 1) - 320) + 'px'; //serious hack, do not touch
+					newdiv.style.top = ((ui.offset.top * 1) - 40) + 'px'; //serious hack, do not touch
+					newdiv.style.width = ui.helper.context.clientWidth + 'px';
+					newdiv.style.height = ui.helper.context.clientHeight + 'px';
+					
+					console.log(newdiv.style.top);
+					
+					var properties = [];
+					var values = [];
+					properties[0] = 'styles';
+					properties[1] = 'properties';
+					properties[2] = 'content';
+					values[0] = styles_from_element(newdiv);
+					values[1] = properties_from_element(newdiv);
+					values[2] = content_from_element(newdiv);
+													
+					dispatch_event(
+								5, 
+								0, 
+								<?php echo $canvas_id; ?>, 
+								<?php echo $user_id; ?>, 
+								properties,
+								values, 
+								function (data) {
+									var element_id = element_from_id(data);
+									newdiv.setAttribute('id', element_id);
+									
+									make_draggable(element_id);									
+									
+								}
+					);
+
 				}
 			
 			
@@ -188,7 +227,17 @@
 			}
 			
 			function element_added(element_id, user_id, data) {
+				console.log(data);
+				var id = element_from_id(element_id);
 			
+				var newdiv = document.createElement('div');
+				newdiv.setAttribute("id", id);
+					
+				div_from_element(data, newdiv);
+								
+				$("#right-hand-canvas")[0].appendChild(newdiv);
+								
+				make_draggable(newdiv.getAttribute('id'));
 			}
 			
 			function element_removed(element_id, user_id, data) {
@@ -267,7 +316,7 @@
 			}
 			
 			load_elements(
-							'right-hand-panel', 
+							'right-hand-canvas', 
 							<?php echo $canvas_id; ?>,  
 							<?php echo $user_id; ?>, 
 							make_draggable,
@@ -345,7 +394,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="right-hand-panel" class="demos">
+	<div id="right-hand-canvas" class="demos">
 	</div>
 	<div style="clear:both;"></div>
 	</div>

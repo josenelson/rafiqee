@@ -47,6 +47,7 @@ switch($event_type)
 		$properties = isset($_GET["properties"])? $_GET["properties"]:die("properties not set");
 		$content = isset($_GET["content"])? $_GET["content"]:die("content not set");
 		$json["data"] = addElement($canvas_id, $user_id, $styles, $properties, $content);
+		$source = $json["data"];
 		break;
 	
 

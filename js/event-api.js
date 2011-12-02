@@ -29,7 +29,7 @@ function dispatch_event(event_type, source, canvas_id, user_id, properties, valu
 			/* no data is actually expected to be return 
 			*	inserting is a special case where a newly create id is being return
 			*/
-			if(callback || false) {
+			if(callback) {
 				callback(data.data);
 			}
 		}
