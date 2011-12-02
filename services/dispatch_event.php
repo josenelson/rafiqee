@@ -33,13 +33,13 @@ $json = array("error"=>0);
 switch($event_type)
 {
  	case 1: break;
-	case 2: $elementid = $source;
+	case 2: 
+	case 3: $elementid = $source;
 		$styles = isset($_GET["styles"])? $_GET["styles"]:die("styles not set");
 		$properties = isset($_GET["properties"])? $_GET["properties"]:die("properties not set");
 		$content = isset($_GET["content"])? $_GET["content"]:die("content not set");
 		updateElement($source, $styles, $properties, $content);
 		break;
-	case 3: break;
 	case 4: deleteElement($source);
 		break;
 	case 5: $styles = isset($_GET["styles"])? $_GET["styles"]:die("styles not set");
