@@ -6,7 +6,6 @@
  * GET parameter is userid
  */
 
-include_once("./config.php");
 
 /**
  * Get all the canvases for a given user id by querying the database

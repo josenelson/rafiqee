@@ -70,6 +70,19 @@ div.mainpage-header {
    	display: inline;
 }
 
+div.mainpage-createcanvas {
+	position:fixed;
+   	right: 10px;
+   	display: inline;
+}
+
+div.mainpage-createcanvas:hover { /*mouse over*/
+	position:fixed;
+   	right: 10px;
+   	display: inline;
+   	background: #0F879A;
+}
+
 div.mainpage-userimage {
 	float: left;
 	position: relative;
@@ -99,6 +112,13 @@ div.mainpage-canvas-thumb {
 	border-radius: 1px;
 	-moz-border-radius: 1px;
 	-webkit-border-radius: 1px;
+}
+
+.mainpage-canvasframe {
+	width: 1024px; 
+	height: 768px;
+	overflow: hidden;
+	 -moz-transform: scale(0.20);
 }
 
 /**************************/
@@ -152,11 +172,12 @@ div.mainpage-canvas-thumb {
 
 
 
-div.project-thumb-tags {
+div.mainpage-canvas-tags {
 	font-size: 12px;
 	font-style: italic;
    	font-family:  "Myriad Web Pro", Helvetica, Arial, Sans-Serif;
    	color: #CD0061;
+   	bottom: 0px;
 }
 
 div.vertical-content-separator {
@@ -170,6 +191,7 @@ div.vertical-content-title {
 	text-align: left;
 	font-size: 14px;
    	font-family:  "Myriad Web Pro", Helvetica, Arial, Sans-Serif;
+   	position: fixed;
 }
 
 div.project-showcase {

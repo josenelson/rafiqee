@@ -1,6 +1,8 @@
 <?php
-	include_once('services/config.php');
-	include_once('fb/facebook_api.php');
+	require_once('./services/config.php');
+	require_once('./services/user_functions.php');
+	require_once('./fb/facebook_api.php');
+
 
 	$logouturl = $_SESSION["logoutUrl"];
 	$loginurl = $_SESSION["loginUrl"];
@@ -38,14 +40,37 @@
         				<img src="<?php echo $userImageUrl;?>" />
        		</div>
         	<div class="mainpage-userinfo">
-        		Welcome, <?php echo $user_name;?></p> 		
+        		Welcome, <?php echo $user_name;?> <a href="<?php echo $logouturl; ?>">Logout</a>
+        		<script>
+        			console.log('user id:' + <?php echo $user_id;?>);	
+        		</script>	
+        	</div>
+        	<div class="mainpage-createcanvas">
+        		New
         	</div>
 		</div>
 		<div class="mainpage-central-content">
-			<div class="mainpage-canvas-thumb">
-					<div>the quick brown fox jumped over the lazy sheep dog</div>
-					<div class="project-thumb-tags">#sketching #research</div>
-			</div>		
+			<?php 
+				$canvases = getAllUserCanvas($user_id);
+				
+				foreach($canvases[$user_id]["accesses"] as $canvas) {
+					$url = './get_div_elements.php?canvas_id=' . $canvas['canvas_id'];
+					$url =  $url . "&user_id=" . $user_id; 
+					?>
+					
+					<div class="mainpage-canvas-thumb">
+						<div><?php echo $canvas['description']; ?></div>
+						<div style="zoom:20%">
+							<iframe frameborder="0" class="mainpage-canvasframe" src="<?php echo $url;?>" width="100px" height="100px">
+  								<p>Your browser does not support iframes.</p>
+							</iframe>
+						</div>
+						<div class="mainpage-canvas-tags">#sketching #research</div>
+					</div>	
+					<?php
+				}
+			?>
+				
 		</div>
 	</body>
 </html>

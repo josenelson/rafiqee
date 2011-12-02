@@ -18,6 +18,9 @@
 	</head>
 	<body>
 		<style>
+			body {
+				overflow: hidden;
+			}
 			#draggable1, #draggable2 { width: 150px; height: 150px; padding: 0.5em; }
 		</style>
 		<script>
