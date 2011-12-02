@@ -1,5 +1,5 @@
 <?php
-include_once('./config.php');
+
 /**
  * Get all the canvases for a given user id by querying the database
  * @param $userid the userid for which we need all canvases
