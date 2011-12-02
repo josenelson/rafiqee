@@ -114,7 +114,7 @@
 			var apiKey = '498b63b3c98a061115046a5f3d34bb79';
 			
 			
-			$.getJSON('http://flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&text='+stext+'&page=1&per_page=10&format=json&jsoncallback=?',
+			$.getJSON('http://flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&text='+stext+'&page='+pageid+'&per_page=10&format=json&jsoncallback=?',
 				function(data){
 					//console.log(data);
 					$.each(data.photos.photo, function(i,item){
@@ -133,12 +133,13 @@
 						//console.log(photoURL);
 					});
 					$('#searched-image').append('<div style=\"clear:both;\"></div>');
-					
+					$('#image-pages').empty();
 					for(var i=1;i<=3;i++){
 						if(i==pageid)
-							var html="<span><a href=\"javascript:getFlickrData("+i+");\">"+i+"</a></span>";	
+							var html="<span class=\"selected\"><a href=\"javascript:getFlickrData("+i+");\">"+i+"</a></span>";	
 						else
-							var html="<span class=\"selected\"><a href=\"javascript:getFlickrData("+i+");\">"+i+"</a></span>";
+							var html="<span><a href=\"javascript:getFlickrData("+i+");\">"+i+"</a></span>";
+							
 							
 						$('#image-pages').append(html);
 					}
@@ -150,14 +151,19 @@
 		}
 		
 		
-		function getYouTubeData(){
+		function getYouTubeData(pageid){
 			var stext = $("#youtube-search-text").val();
 			if(stext=="")
 				return;
 			//Add a loader
 			$('#searched-video').empty();
 			//$('<img alt="">').attr('id', 'loader').attr('src', 'images/loader.gif').appendTo('#searched-image');
-			$.getJSON('http://gdata.youtube.com/feeds/api/videos/-/%7B'+stext+'%7D?max-results=8&alt=json&orderby=viewCount',
+			var startIndex =1;
+			if(pageid==1)
+				startIndex=1;
+			else
+				startIndex = (pageid*6)+1;
+			$.getJSON('http://gdata.youtube.com/feeds/api/videos/-/%7B'+stext+'%7D?max-results=6&start-index='+startIndex+'&alt=json&orderby=viewCount',
 				function(data){
 					//console.log(data);
 					$.each(data.feed.entry, function(i,item){
@@ -174,10 +180,22 @@
 						html += "</div></div>";
 						//console.log(html);
 						$('#searched-video').append(html);
-						//console.log();
-						//console.log(item.title.$t);
+						
 					});
-					$("#element-accordion").accordion('resize');
+					$('#searched-video').append('<div style=\"clear:both;\"></div>');
+					$('#video-pages').empty();
+					for(var i=1;i<=3;i++){
+						if(i==pageid)
+							var html="<span class=\"selected\"><a href=\"javascript:getYouTubeData("+i+");\">"+i+"</a></span>";	
+						else
+							var html="<span><a href=\"javascript:getYouTubeData("+i+");\">"+i+"</a></span>";
+							
+							
+						$('#video-pages').append(html);
+					}
+
+					makeVideoDraggable();
+					//$("#element-accordion").accordion('resize');
 					
 			});
 		
@@ -190,6 +208,20 @@
   				},
   				function () {
    					 $(this).css({'background-color':'#FFFFFF'});
+ 				 }
+			);
+			$('.movable').draggable({helper:'clone',appendTo: 'body'});
+		}
+		
+		function makeVideoDraggable(){
+			$('.movable').hover(
+  				function () {
+    				$(this).css({'background-color':'#4AA052'});
+    				$(this).find('p').css({'color':'#FFFFFF'});
+  				},
+  				function () {
+   					 $(this).css({'background-color':'#FFFFFF'});
+   					 $(this).find('p').css({'color':'#4AA052'});
  				 }
 			);
 			$('.movable').draggable({helper:'clone',appendTo: 'body'});
@@ -364,21 +396,36 @@
 					</div>
 				</div>
 			</div>
-		
-				<h3><a href="#">Videos</a></h3>
-		
+			<h3><a href="#">Videos</a></h3>
 			<div class="element-body">
 				<div id="search-video-box">
-					<div class="apple-video-search">
-						<input type="text" width="250px" id="youtube-search-text" class="sbox"/>
+					<div class="search-holder">
+					<div class="apple-search">
+						<table cellpadding="0" cellspacing="0"><tbody>
+							<tr><td><input type="text" width="250px" id="youtube-search-text" class="sbox"/></td>
+							<td><a href="javascript:javascript:getYouTubeData(1)"><img src="images/search.png" class="search-image"/></td></tr>
+						</tbody></table>
 						
-						<span style="margin-top:5px;"><a href="javascript:getYouTubeData()"><img src="images/search.png" class="search-image"/></a></span>
+						
+					</div>
 					</div>
 
 					
 					<div id="searched-video">
 					</div>
 					<div id="video-pages">
+					</div>
+				</div>
+			</div>
+			<h3><a href="#">Elements</a></h3>
+			<div class="element-body">
+				<div id="element-content">
+					<div class="text-header"></div>
+					<div id="stickies-list">
+						<div class="stickies">
+					</div>
+					<div class="text-header"></div>
+					<div id="tags-list">
 					</div>
 				</div>
 			</div>
@@ -394,7 +441,13 @@
 			</div>
 		</div>
 	</div>
-	<div id="right-hand-canvas" class="demos">
+	<div id="right-hand-panel">
+		<div id="canvas-title-box">
+			<div id="canvas-title"><p>Which is the best restaurant in Palo Alto?</p></div>
+			<div id="canvas-added"><p>Kartikeya Dubey</p></div>
+		</div>
+		<div id="right-hand-canvas" class="demos">
+		</div>
 	</div>
 	<div style="clear:both;"></div>
 	</div>

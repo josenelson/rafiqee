@@ -88,8 +88,8 @@ img.search-image{
 }
 
 div#bottom-pane{
-	width: 100%;
-	height: 100%;
+	width:100%;
+	height:100%;
 }
 div#left-hand-panel{
 	width:300px;
@@ -143,6 +143,12 @@ div.image-wrapper img{
 div#image-pages{
 	text-align:center;
 	font-size:0.8em;
+	margin-top:10px;
+}
+
+div#image-pages span{
+	padding-left:2px;
+	padding-right:2px;
 }
 
 div#image-pages span.selected{
@@ -150,28 +156,34 @@ div#image-pages span.selected{
 	color:white;
 	-moz-border-radius: 25px;
   	border-radius: 25px;
+	padding-left:4px;
+	padding-right:4px;
 	
 }
 
-div#right-hand-canvas{
-	border:1px solid #EB8F00;
+div#image-pages span.selected a{color:white;}
+
+div#right-hand-panel{
+	
 	height:95%;
 	position:fixed;
 	left:320px;
 	right:10px;
-	top:40px;
+	top:0px;
 	bottom: 0px;
 	
 }
 
 div#searched-video{
 	margin-top:10px;
+	padding-left:10px;
+	padding-right:10px;
 }
 
 div.video-wrapper{
 	width:128px;
 	padding:3px;
-	border:1px solid #e2c1bf;
+	border:1px solid #83b888;
 	overflow:hidden;
 	float:left;
 }
@@ -194,9 +206,84 @@ div.right-video{
 
 div.video-text p{
 	text-transform:uppercase;
-	color:#fa4b43;
+	color:#4AA052;
 	font-size:0.6em;
 }
+
+div#video-pages{
+	text-align:center;
+	font-size:0.8em;
+	margin-top:10px;
+}
+
+div#video-pages span{
+	padding-left:2px;
+	padding-right:2px;
+}
+
+div#video-pages span.selected{
+	background-color: #4AA052;
+	color:white;
+	-moz-border-radius: 25px;
+  	border-radius: 25px;
+	padding-left:4px;
+	padding-right:4px;
+	
+}
+
+div#video-pages span.selected a{color:white;}
+
+
+div#canvas-title-box{
+	margin-top:40px;
+	margin-left:40px;
+}
+
+div#canvas-title{
+	width:500px;
+}
+div#canvas-title p{
+	font-family: ChampagneLimoBold;
+	font-size:2.0em;
+	text-transform: uppercase;
+	color:#9d3692;
+}
+
+div#canvas-added p{
+	font-family: ChampagneLimo;
+	font-size:1.1em;
+	text-transform: uppercase;
+	color:#ae51b0;
+	letter-spacing: 2px;
+}
+
+div#right-hand-canvas{
+	width:100%;
+	height:100%;
+	
+}
+
+@font-face {
+    font-family:'ChampagneLimo';
+    src: url('font/Champagne_Limousines.eot');
+    src: url('font/Champagne_Limousines.eot?#iefix') format('embedded-opentype'),
+         url('font/Champagne_Limousines.ttf') format('truetype'),
+         url('font/champagne_limousines.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family:'ChampagneLimoBold';
+    src: url('font/Champagne_Limousines_Bold.eot');
+    src: url('font/Champagne_Limousines_Bold?#iefix') format('embedded-opentype'),
+         url('font/Champagne_Limousines_Bold.ttf') format('truetype'),
+         url('font/champagne_limousines_bold.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 
 
 
