@@ -65,61 +65,12 @@ function getUserInfo($userid) {
 	return $json_output;
 }
 
-function getEventInfo($eventid) {
-	$jsonurl = "https://graph.facebook.com/" . $eventid;
-	$json = file_get_contents($jsonurl,0,null,null);
-	$json_output = json_decode($json);
-	return $json_output;
-}
-
-function getEventPicture($eventid)
+function postStatusMessage($canvasUrl)
 {
-	$jsonurl = "https://graph.facebook.com/" . $eventid."/picture?type=large";
-	return $jsonurl;
+	global $facebook;
+	$status = $facebook->api('/me/feed', 'POST', array('message'=>$canvasUrl));
 }
 
-
-function getUserAlbums($userid)
-{
-	$jsonurl = "https://graph.facebook.com/" . $userid."/albums";
-	$jsonurl .= "?access_token=" . $_SESSION["access_token"];
-	$json = file_get_contents($jsonurl,0,null,null);
-	$json_output = json_decode($json);
-	return $json_output;
-}
-
-function getAlbumPictures($albumid)
-{
-	$jsonurl = "https://graph.facebook.com/" . $albumid."/photos";
-	$jsonurl .= "?access_token=" . $_SESSION["access_token"];
-	$json = file_get_contents($jsonurl,0,null,null);
-	$json_output = json_decode($json);
-	return $json_output;
-
-}
-
-
-function getUserEvents() {	
-	$jsonurl = "https://api.facebook.com/method/events.get";
-	$jsonurl = $jsonurl . "?access_token=" . $_SESSION["access_token"];
-	$jsonurl = $jsonurl . "&format=json";
-		
-	$json = file_get_contents($jsonurl,0,null,null);
-	$json_output = json_decode($json);
-	
-	return $json_output;
-}
-
-function getEventUsers($eventid)
-{
-	$jsonurl = "https://api.facebook.com/method/events.getMembers";
-	$jsonurl = $jsonurl."?eid=".$eventid."&access_token=".$_SESSION["access_token"];
-	$jsonurl = $jsonurl."&format=json";
-	$json = file_get_contents($jsonurl, 0, null, null);
-	$json_output = json_decode($json);
-
-	return $json_output;
-}
 
 function getImageUrl($imageid) {
 	$url = "https://graph.facebook.com/" . $imageid;
@@ -127,6 +78,53 @@ function getImageUrl($imageid) {
 	$json = file_get_contents($url, 0, null, null);
 	$jsonoutput = json_decode($json);
 	return $jsonoutput->{"picture"};
+}
+
+
+function getCollabData($canvas_id)
+{
+	$query = "SELECT user_id FROM userhascanvas WHERE canvas_id=".$canvas_id;
+	$result = mysql_query($query);
+	$json[$canvas_id] = array();
+	if($result)
+	{
+		//Generate random colors for each collaborator
+		$count = 0;
+		$total = mysql_num_rows($result);
+		$colors = array();
+		while($count < $total)
+		{
+			$tempColor = generateRandomColor();
+			if(!in_array($tempColor, $colors))
+			{
+				array_push($colors, $tempColor);
+				$count++;
+			}
+		}
+		$colorCount = 0;
+		while($row = mysql_fetch_assoc($result))
+		{
+			$url = "https://graph.facebook.com/".$row["user_id"]."/picture";
+			$temp["img"] = $url;
+			$jsonurl = "https://graph.facebook.com/".$row["user_id"];
+			$tempname = file_get_contents($jsonurl, 0, null, null);
+			$tempstr = json_decode($tempname);
+			$temp["name"] = $tempstr->{"name"};
+			$temp["color"] = $colors[$colorCount];
+			$colorCount++;
+			array_push($json[$canvas_id], $temp);
+		}
+	}
+	return $json;
+}
+
+function generateRandomColor(){
+    $randomcolor = '#' . strtoupper(dechex(rand(0,10000000)));
+    if (strlen($randomcolor) != 7){
+        $randomcolor = str_pad($randomcolor, 10, '0', STR_PAD_RIGHT);
+        $randomcolor = substr($randomcolor,0,7);
+    }
+return $randomcolor;
 }
 
 
