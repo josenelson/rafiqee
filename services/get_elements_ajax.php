@@ -16,6 +16,6 @@ $user_id = isset($_GET["user_id"])? $_GET["user_id"]:die("user id not set");
 
 //Get all element data
 $elements = array();
-$elements["elements"] = getElementsData($canvas_id);
+$elements["elements"] = getElementData($canvas_id);
 $elements["timestamp"] = time();
 echo json_encode($elements);

@@ -28,6 +28,7 @@ $event_type = isset($_GET["event_type"])? $_GET["event_type"]:die("event type no
 *
 */
 
+
 $json = array("error"=>0);
 
 switch($event_type)
@@ -50,6 +51,8 @@ switch($event_type)
 	
 
 }
+
+
 
 dispatch_event($event_type, $source, $canvas_id, $user_id);
 

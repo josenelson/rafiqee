@@ -61,7 +61,8 @@ function wait_for_events($canvas_id, $user_id, $timestamp) {
 		if($found_results) break;
 	
 	}
-		
+	
+	
 	return array("events" => $events, "timestamp" => $timestamp);
 }
 

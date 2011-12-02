@@ -1,0 +1,219 @@
+body {
+	background: #D8D8D8;
+}
+
+/***** Styles for left navigation menu *********/
+div.main-name {
+	text-align: right;
+	font-size: 26px;
+	font-family: "Myriad Web Pro", sans-serif;
+	color: #797979;
+	padding-right: 10px;
+}
+
+div.main-tags {
+	text-align: right;
+	font-size: 14px;
+	font-family: "Myriad Web Pro", sans-serif;
+	font-style: italic;
+	color: #CD0061;
+	padding-right: 10px;
+	padding-bottom: 20px;
+}
+
+div.title-name {
+	text-align: left;
+	font-size: 26px;
+	font-family: "Myriad Web Pro", sans-serif;
+	color: #797979;
+	padding-right: 10px;
+}
+
+
+/* This is the left bar */
+div.navigation {
+	position: fixed;
+	/* Give an all around 10px margin */
+	/*top: 20px;
+	bottom: 20px;
+	left: 20px;*/
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+	width: 198px;
+	color: black;
+	background: #F7F6F6;
+	border-right: 2px solid #CD0061;
+	display: inline;
+}
+/****************************************/
+
+/* This is the content on the right */
+div.mainpage-central-content {
+   	position:fixed;
+   	/* Give an all around 10px margin */
+   	/*top: 20px;*/
+   	right: 20px;
+   	bottom: 0px;
+   	top:70px;
+   	height: 100%;
+   	padding-left: 10px;
+   	left: 20px;
+   	display: inline;
+}
+
+div.mainpage-header {
+	position:fixed;
+   	right: 10px;
+   	left: 20px;
+   	height: 50px;
+   	display: inline;
+}
+
+div.mainpage-userimage {
+	float: left;
+	position: relative;
+}
+
+div.mainpage-userinfo {
+	float: left;
+	position: relative;
+	bottom: 0px;
+}
+
+div.mainpage-canvas-thumb {
+	width: 200px;
+	height: 250px;
+	float: left;
+	margin: 0 10px 10px 0px;
+	position: relative;
+	color: #797979;
+	text-align: left;
+	font-size: 14px;
+   	font-family:  "Myriad Web Pro", Helvetica, Arial, Sans-Serif;
+	border: 10px solid white;
+	background: white;
+	-moz-box-shadow: 0px 1px 10px rgba(100,100,100,.3);
+	-webkit-box-shadow: 0px 1px 10px rgba(100,100,100,.3);
+	box-shadow: 0px 1px 10px rgba(100,100,100,.3);
+	border-radius: 1px;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+}
+
+/**************************/
+
+.selected-button {
+	text-align: right;
+	float: right;
+	clear: both;
+	width: 100px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-right: 10px solid #CD0061;
+	color: #797979;
+   	font-size: 14px;
+   	font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   	text-decoration: none;
+}
+
+.unselected-button {
+	text-align: right;
+	float: right;
+	clear: both;
+	width: 100px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-right: 10px solid #F7F6F6;
+	color: #797979;
+   	font-size: 14px;
+   	font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   	text-decoration: none;
+}
+
+.unselected-button:hover {
+   	border-top-color: #0F879A;
+   	background: #0F879A;
+   	color: #ccc;
+   	/*border-top-color: #28597a;
+   	background: #28597a;
+   	color: #ccc;*/
+}
+.unselected-button:active {
+   	border-top-color: #1b435e;
+   	background: #1b435e;
+}
+
+
+
+
+
+div.project-thumb-tags {
+	font-size: 12px;
+	font-style: italic;
+   	font-family:  "Myriad Web Pro", Helvetica, Arial, Sans-Serif;
+   	color: #CD0061;
+}
+
+div.vertical-content-separator {
+	height: 2px;
+	background-color: #797979;
+	margin-right: 10px;
+}
+
+div.vertical-content-title {
+	color: #797979;
+	text-align: left;
+	font-size: 14px;
+   	font-family:  "Myriad Web Pro", Helvetica, Arial, Sans-Serif;
+}
+
+div.project-showcase {
+	width: 660px;
+	height: 312px;
+	/*float: left;*/
+	margin: 0 10px 10px 0px;
+	position: relative;
+	color: #797979;
+	text-align: left;
+	font-size: 14px;
+	font-family: "Myriad Web Pro", sans-serif;
+	border: 10px solid white;
+	background: white;
+	-moz-box-shadow: 0px 1px 10px rgba(100,100,100,.3);
+	-webkit-box-shadow: 0px 1px 10px rgba(100,100,100,.3);
+	box-shadow: 0px 1px 10px rgba(100,100,100,.3);
+	border-radius: 1px;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+}
+
+div.project-showcase-image{
+	left: 0px;
+	display: inline;
+	float:left;
+}
+
+div.project-showcase-text{
+	left: 100px;
+	display: inline;
+	float: left;
+	padding-left: 10px;
+}
+
+div.project-showcase-title {
+	text-align: left;
+	font-size: 26px;
+	font-family: "Myriad Web Pro", sans-serif;
+	margin-bottom: 5px;
+}
+
+div.project-showcase-description {
+	text-align: left;
+	font-size: 14px;
+	font-family: "Myriad Web Pro", sans-serif;
+}
