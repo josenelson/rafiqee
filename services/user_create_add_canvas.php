@@ -18,7 +18,6 @@ if($result)
 {
 
 	$insertId = mysql_insert_id();
-	addToHasCanvas($user_id, $insertId);
 	echo json_encode($insertId);	
 }
 else
