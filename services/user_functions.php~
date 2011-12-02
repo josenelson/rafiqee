@@ -38,7 +38,7 @@ function getAllUserCanvas($userid)
 		{
 			//Store the id and description
 			$temp = array();
-			$temp["canvas_id"] = $row["canvas_id"];
+			$temp["canvas_id"] = $row["canvasid"];
 			$temp["description"] = getDescription($row["canvas_id"]);
 			array_push($canvasList[$userid]["accesses"], $temp);
 		}
