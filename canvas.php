@@ -21,7 +21,32 @@
 			#draggable1, #draggable2 { width: 150px; height: 150px; padding: 0.5em; }
 		</style>
 		<script>
-			load_elements('container', <?php echo $canvas_id; ?>,  <?php echo $user_id; ?>);
+			/*
+			*	Makes a element with a given
+			*	id draggable in its container
+			*/
+			function make_draggable(element_id) {
+				var element = $( "#" + element_id )[0];
+				$( "#" + element_id ).draggable({
+					start: function() {
+						/* Dragging started */
+					},
+					drag: function() {
+						//udpate_server(element);
+						//update_server(element);
+					},
+					stop: function() {
+						/* Dragging ended */
+		
+						//update_server(element);
+						//alert(element.offsetTop + ':' + element.offsetLeft);
+					}
+				});
+
+			}
+
+
+			load_elements('container', <?php echo $canvas_id; ?>,  <?php echo $user_id; ?>, make_draggable);
 		</script>
 		<div id="container" class="demos">
 	

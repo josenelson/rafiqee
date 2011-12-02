@@ -10,7 +10,7 @@ type_block['properties'] = '';
 *	Loads the elements from the database that are associated with a canvas
 *	and adds them to the container div
 */
-function load_elements(container_id, canvas_id, user_id) {
+function load_elements(container_id, canvas_id, user_id, callback) {
 	$.getJSON("./services/get_elements.php?canvas_id=" + canvas_id + "&user_id=" + user_id, 
 		function(data) {
 		timestamp = data.timestamp;
@@ -20,8 +20,8 @@ function load_elements(container_id, canvas_id, user_id) {
 				div_from_element(data.elements[i], newdiv);
 								
 				$("#" + container_id)[0].appendChild(newdiv);
-								
-				make_draggable(newdiv.getAttribute('id'));
+				
+				callback(newdiv);
 			}
 	});
 
