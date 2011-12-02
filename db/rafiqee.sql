@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2011 at 05:32 PM
+-- Generation Time: Dec 02, 2011 at 02:50 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -26,15 +26,20 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `canvas` (
-  `canvasid` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text NOT NULL,
-  PRIMARY KEY (`canvasid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `user_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `canvas`
 --
 
+INSERT INTO `canvas` (`id`, `description`, `user_id`) VALUES
+(1, 'Asim test canvas 1', 1182800656),
+(2, 'abcdef', 1),
+(7, 'Asim''s second canvas', 1182800656);
 
 -- --------------------------------------------------------
 
@@ -51,15 +56,17 @@ CREATE TABLE IF NOT EXISTS `elements` (
   `content` varchar(255) NOT NULL,
   `styles` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `elements`
 --
 
 INSERT INTO `elements` (`id`, `user_id`, `updated`, `properties`, `canvas`, `content`, `styles`) VALUES
-(1, 1, '2011-11-30 23:34:01', 'content', 1, 'undefined', 'left:360px,top:23px,width:200px,height:150px'),
-(2, 1, '2011-11-30 23:33:53', '', 1, 'undefined', 'left:754px,top:-64px,width:100px,height:150px');
+(1, 1, '2011-12-01 23:56:14', '', 1, 'undefined', 'left:16px,top:57px,width:200px,height:150px'),
+(2, 1, '2011-11-30 23:33:53', '', 1, 'undefined', 'left:754px,top:-64px,width:100px,height:150px'),
+(5, 69, '2011-12-01 23:47:16', 'b', 2, 'c', 'a'),
+(6, 1, '2011-12-02 01:31:18', '', 2, 'helloworld', 'left: 50px, top: 50px');
 
 -- --------------------------------------------------------
 
@@ -91,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `user_id` bigint(11) NOT NULL,
   `source` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `events`
@@ -101,25 +108,34 @@ INSERT INTO `events` (`id`, `event_type`, `canvas_id`, `unix_timestamp`, `user_i
 (2, 1, 1, 1322720782, 2, 2),
 (3, 1, 1, 6, 2, 3),
 (4, 1, 1, 4, 1, 2),
-(5, 1, 1, 1322723156, 2, 1);
+(5, 1, 1, 1322723156, 2, 1),
+(6, 2, 2, 1322802438, 1182800656, 3),
+(7, 4, 2, 1322802817, 1182800656, 3),
+(8, 5, 2, 1322804860, 69, 0),
+(9, 2, 1, 1322805398, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userownscanvas`
+-- Table structure for table `userhascanvas`
 --
 
-CREATE TABLE IF NOT EXISTS `userownscanvas` (
-  `userid` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `userhascanvas` (
+  `user_id` bigint(11) NOT NULL,
+  `canvas_id` int(11) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
-  KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `userid` (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `userownscanvas`
+-- Dumping data for table `userhascanvas`
 --
 
+INSERT INTO `userhascanvas` (`user_id`, `canvas_id`, `id`) VALUES
+(1182800656, 2, 4),
+(1234, 1, 3),
+(1182800656, 6, 7);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
