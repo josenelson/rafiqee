@@ -8,7 +8,7 @@ include_once("./add_user_access.php");
 $user_id = isset($_GET["user_id"])? $_GET["user_id"]:json_die("user id is not set");
 $description = isset($_GET["description"])? $_GET["description"]:json_die("description not set");
 
-$query = "INSERT INTO canvas(description, user_id) VALUES('".
+$query = "INSERT INTO canvas(description, user_id) VALUES('";
 $query .= $description."',";
 $query .= $user_id;
 $query .=")";
