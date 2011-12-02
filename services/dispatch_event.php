@@ -8,7 +8,7 @@ header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Content-type: application/json');
 
 /*
-*	dispatch_event.php?canvas_id=1&user_id=2&source=1&event_type=1
+*	dispatch_event.php?canvas_id=1&user_id=2&source=1&event_type=[&styles=…&properties=…&content=…]
 *	
 */
 
@@ -20,11 +20,11 @@ $event_type = isset($_GET["event_type"])? $_GET["event_type"]:die("event type no
 /*	Needs to iterate trough events, 
 *	check event type and source, and attach appropriate data.
 *
-*	Eg. foreach($events['events'] as $event) {
+*	Eg.
 *		if($event_type == 0) {}
 *		else if($event_type == 1) {}
 *		...
-*	}
+*	
 *
 */
 

@@ -7,7 +7,9 @@
 *
 *	These codes are also used within javascript access.
 *	This is just for documentation, no functionality exists
+* 	1: user cliks on a element: source represents the element clicked
 */
+
 
 
 

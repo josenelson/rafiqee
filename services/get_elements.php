@@ -6,22 +6,20 @@ header('Content-type: application/json');
 
 include_once('./config.php');
 
-$canvas = isset($_GET["canvas"])? $_GET["canvas"]:die("canvas id not set");
+$timestamp = time();
 
-$query = "SELECT * FROM elements WHERE canvas = " . $canvas;
+$canvas_id = isset($_GET["canvas_id"])? $_GET["canvas_id"]:die("canvas id not set");
+$user_id = isset($_GET["user_id"])? $_GET["user_id"]:die("user id not set");
 
-if(isset($_GET["timestamp"]))
-	$query = $query . " and unix_timestamp > " . $_GET["timestamp"];
+$query = "SELECT * FROM elements WHERE canvas = " . $canvas_id;
 
-if(isset($_GET["user_id"]))
-	$query = $query . " and  user_id != " . $_GET["user_id"];
+//should log in user here ?
 
-
-$result = mysql_query($query);
+$result = mysql_query($query) or json_die(mysql_error());
 
 $elements = array();
 $elements["elements"] = array();
-$elements["timestamp"] = time();
+$elements["timestamp"] = $timestamp;
 
 if($result)  {
 

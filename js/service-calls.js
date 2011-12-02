@@ -1,9 +1,60 @@
 var id_prefix = "element_";
 var type_block = new Array();
+var timestamp = 0;
 
 type_block['styles'] = 'left:0px,top:34px,width:200px,height:100px';
 type_block['properties'] = '';
 
+
+/*
+*	Loads the elements from the database that are associated with a canvas
+*	and adds them to the container div
+*/
+function load_elements(container_id, canvas_id, user_id) {
+	$.getJSON("./services/get_elements.php?canvas_id=" + canvas_id + "&user_id=" + user_id, 
+		function(data) {
+		timestamp = data.timestamp;
+			for(var i = 0; i < data.elements.length; i++) {
+								
+				var newdiv = document.createElement('div');
+				div_from_element(data.elements[i], newdiv);
+								
+				$("#" + container_id)[0].appendChild(newdiv);
+								
+				make_draggable(newdiv.getAttribute('id'));
+			}
+	});
+
+}
+
+/*
+*	Makes a element with a given
+*	id draggable in its container
+*/
+function make_draggable(element_id) {
+	var element = $( "#" + element_id )[0];
+	$( "#" + element_id ).draggable({
+			start: function() {
+				/* Dragging started */
+			},
+			drag: function() {
+				//udpate_server(element);
+				//update_server(element);
+			},
+			stop: function() {
+				/* Dragging ended */
+		
+				//update_server(element);
+				//alert(element.offsetTop + ':' + element.offsetLeft);
+			}
+	});
+
+}
+
+/*
+*	Returns a associative array of styles
+*	that that are being monitored for the element.
+*/
 function styles_from_element(element) {
 	
 	var styles = type_block['styles'].split(',');
@@ -19,6 +70,10 @@ function styles_from_element(element) {
 
 }
 
+/*
+*	Returns a associative array of properties
+*	that that are being monitored for the element.
+*/
 function properties_from_element(element) {
 	
 	var properties = type_block['properties'].split(',');
@@ -34,12 +89,20 @@ function properties_from_element(element) {
 
 }
 
+/*
+*	Return the database id of the given element
+*
+*/
 function id_from_element(element) {
 	var id = element.getAttribute('id');
 	
 	return id.substring(id_prefix.length, id.length);
 }
 
+/*
+*	Creates a div from the db information 
+*	supplied.
+*/
 function div_from_element(element, newdiv) {
 
 	var id = id_prefix + element.id;
