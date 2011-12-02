@@ -263,6 +263,74 @@ div#right-hand-canvas{
 	
 }
 
+div#element-content{
+	margin-top:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+div.text-header{
+	text-transform: uppercase;
+	font-size:0.9em;
+	color:#4AA052;
+	margin-bottom:5px;
+}
+
+div.stickies{
+	width:132px;
+	height:145px;
+	float:left;
+	margin-bottom:5px;
+}
+
+div#yellowSticky{
+	background-color: #f3fa4f;
+	
+	width:100%;
+	height:100%;
+}
+div#blueSticky{
+	background-color: #b1e7f6;
+	width:100%;
+	height:100%;
+}
+div#pinkSticky{
+	background-color: #ffabd4;
+	margin-right:5px;
+	width:100%;
+	height:100%;
+}
+div#greenSticky{
+	background-color: #b9e953;
+	width:100%;
+	height:100%;
+}
+
+div.stickyHandle{
+	width:100%;
+	height:15px;
+	
+	
+}
+
+div#yellowHandle{
+	background-color: #d9e03d;
+	border-bottom: 1px solid #9ca038;
+}
+
+div#blueHandle{
+	background-color: #54bbd7;
+	border-bottom: 1px solid #408497;
+}
+div#pinkHandle{
+	background-color: #e862a4;
+	border-bottom: 1px solid #a14471;
+}
+div#greenHandle{
+	background-color: #a5d937;
+	border-bottom: 1px solid #76982f;
+}
+
 @font-face {
     font-family:'ChampagneLimo';
     src: url('font/Champagne_Limousines.eot');

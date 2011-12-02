@@ -52,7 +52,14 @@
 			$("#element-accordion").accordion();
 			$( "#right-hand-canvas" ).droppable({ accept: '.movable',
 				drop: function(event, ui) {
-
+					
+					if(ui.draggable[0].className.indexOf('stickies')>-1){
+						
+						var sleft = ((ui.offset.left * 1) - 320);
+						var stop = ((ui.offset.top * 1) - 40);
+						var sid = ui.draggable[0].children[0].getAttribute('id');
+						makeSticky(sleft,stop,sid);
+					}
 					//create a new element with the following definitions:
 					//var newdiv = ui.draggable[0].cloneNode(true);
 					var newdiv = document.createElement('div');
@@ -100,7 +107,44 @@
 		
 		});
 	
-	
+		function makeSticky(sleft,stop,sid){
+			notes++;
+			var html="<div id=\"notes-"+notes+"\"style=\"width:200px;height:220px;position:relative;left:"+sleft+";top:"+stop+";\">";
+			html +="<div id="+sid+">";
+			if(sid=="yellowSticky")
+				html+="<div class=\"stickyHandle\" id=\"yellowHandle\"></div>";
+			if(sid=="blueSticky")
+				html+="<div class=\"stickyHandle\" id=\"blueHandle\"></div>";
+			if(sid=="pinkSticky")
+				html+="<div class=\"stickyHandle\" id=\"pinkHandle\"></div>";
+			if(sid=="greenSticky")
+				html+="<div class=\"stickyHandle\" id=\"greenHandle\"></div>";
+			html += "<div class=\"stickyText\">";
+			html += "<textarea name=\"stickme\" style=\"max-width: 180px;min-width: 180px;\" cols=\"30\" rows=\"5\" onkeypress=\"return checkEnter('notes-"+notes+"',"+sleft+","+stop+",event,this)\"></textarea>";
+			html += "</div></div></div>"
+			$('#right-hand-canvas').append(html);
+			$('#right-hand-canvas').find('#notes-'+notes).find('textarea[name=stickme]').focus();
+			$('#right-hand-canvas').find('#notes-'+notes).find('textarea[name=stickme]').blur(function() {
+				console.log("here");
+  				$('#notes-'+notes).remove();
+			});
+
+				
+		}
+		
+		function checkEnter(noteid,sleft,stop,event,tb){
+			//console.log("Blah!");
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '13'){
+				if(tb.value!=""){
+				}
+			}
+			if(keycode == '27'){
+				console.log("Escape"+noteid);
+				$('div#'+noteid).remove();
+			}
+		} 
+		
 		function getFlickrData(pageid){
 			var stext = $("#flickr-search-text").val();
 			if(stext=="")
@@ -420,11 +464,31 @@
 			<h3><a href="#">Elements</a></h3>
 			<div class="element-body">
 				<div id="element-content">
-					<div class="text-header"></div>
+					<div class="text-header"><p>Stickies</p></div>
 					<div id="stickies-list">
-						<div class="stickies">
+						<div class="stickies movable" style="margin-right:5px;">
+							<div id="yellowSticky">
+							<div class="stickyHandle" id="yellowHandle"></div>
+							</div>
+						</div>
+						<div class="stickies movable">
+							<div id="blueSticky">
+							<div class="stickyHandle" id="blueHandle"></div>
+							</div>
+						</div>
+						<div class="stickies movable" style="margin-right:5px;">
+							<div id="pinkSticky">
+							<div class="stickyHandle" id="pinkHandle"></div>
+							</div>
+						</div>
+						<div class="stickies movable">
+							<div id="greenSticky">
+							<div class="stickyHandle" id="greenHandle"></div>
+							</div>
+						</div>
+						<div style="clear:both;"></div>
 					</div>
-					<div class="text-header"></div>
+					<div class="text-header" style="margin-top:20px;"><p>Tags</p></div>
 					<div id="tags-list">
 					</div>
 				</div>
