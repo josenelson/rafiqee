@@ -1,7 +1,9 @@
 <?php
 	include_once('services/config.php');
 	include_once('fb/facebook_api.php');
+	include_once('services/messaging.php');
 	include_once('./services/user_functions.php');
+	include_once('./services/add_user_access.php');
 
 	$logouturl = $_SESSION["logoutUrl"];
 	$loginurl = $_SESSION["loginUrl"];
@@ -27,6 +29,9 @@
 	$canvas_id = $_GET["canvas_id"];
 	$creator_id = getCreatorId($canvas_id);
 	
+	dispatch_event(6, $user_id, $canvas_id, $user_id);
+	
+	addToHasCanvas($user_id, $canvas_id);
 		
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">

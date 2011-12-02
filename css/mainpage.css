@@ -74,6 +74,7 @@ div#access-canvases{
 	background: url('images/accord-back.png') repeat;
 	padding-top: 10px;
 	padding-left: 10px;
+	text-transform:uppercase;
 }
 
 /* This is the content on the right */

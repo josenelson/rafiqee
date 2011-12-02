@@ -1,6 +1,6 @@
 <?php
 
-include_once('./config.php');
+//include_once('./config.php');
 
 /* SQL Queries to be used: problem not working inside the functions */
 $SQL_SELECT_EVENTS = "SELECT * FROM events WHERE unix_timestamp > @{unix_timestamp} and user_id !=  @{user_id} and canvas_id = @{canvas_id} order by unix_timestamp asc";
