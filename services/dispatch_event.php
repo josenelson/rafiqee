@@ -28,10 +28,66 @@ $event_type = isset($_GET["event_type"])? $_GET["event_type"]:die("event type no
 *
 */
 
+$json = array("error"=>0);
+
+switch($event_type)
+{
+ 	case 1: break;
+	case 2: $elementid = $source;
+		$styles = isset($_GET["styles"])? $_GET["styles"]:die("styles not set");
+		$properties = isset($_GET["properties"])? $_GET["properties"]:die("properties not set");
+		$content = isset($_GET["content"])? $_GET["content"]:die("content not set");
+		updateElement($source, $styles, $properties, $content);
+		break;
+	case 3: break;
+	case 4: deleteElement($source);
+		break;
+	case 5: $styles = isset($_GET["styles"])? $_GET["styles"]:die("styles not set");
+		$properties = isset($_GET["properties"])? $_GET["properties"]:die("properties not set");
+		$content = isset($_GET["content"])? $_GET["content"]:die("content not set");
+		$json["data"] = addElement($canvas_id, $user_id, $styles, $properties, $content);
+		break;
+	
+
+}
+
 dispatch_event($event_type, $source, $canvas_id, $user_id);
 
 /* Return a empty response in case of success */
-echo json_encode(array("error" => 0));
+echo json_encode($json);
 
+//Function to update the elements table
+function updateElement($elementid, $styles, $properties, $content)
+{
 
+	$query = "UPDATE elements SET styles='";
+	$query .= $styles."',";
+	$query .= "properties ='";
+	$query .= $properties."',";
+	$query .= "content ='";
+	$query .= $content;
+	$query .= "' WHERE id=".$elementid;
+	mysql_query($query) or json_die(mysql_error());
+}
 
+//Function to delete a given element from the database
+function deleteElement($elemid)
+{
+	$query = "DELETE FROM elements WHERE id=";
+	$query .= $elemid;
+	mysql_query($query) or json_die(mysql_error());
+}
+
+//Function to insert a new element into the database
+function addElement($canvasid, $userid, $styles, $properties, $content)
+{
+	$query = "INSERT INTO elements(user_id, properties, canvas, content, styles) VALUES(";
+	$query .= $userid.", '";
+	$query .= $properties."',";
+	$query .= $canvasid.",'";
+	$query .= $content."','";
+	$query .= $styles."'";
+	$query .= ")";
+	mysql_query($query) or json_die(mysql_error());
+	return mysql_insert_id();
+}
