@@ -60,7 +60,7 @@
 					
 					$("#right-hand-canvas")[0].appendChild(newdiv);
 								
-					newdiv.style.position = 'absolute';	
+					newdiv.style.position = 'relative';	
 					newdiv.style.left = ((ui.offset.left * 1) - 320) + 'px'; //serious hack, do not touch
 					newdiv.style.top = ((ui.offset.top * 1) - 40) + 'px'; //serious hack, do not touch
 					newdiv.style.width = ui.helper.context.clientWidth + 'px';

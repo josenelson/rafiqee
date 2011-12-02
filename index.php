@@ -35,6 +35,46 @@
 	<link href="css/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
 	<link href="css/mainpage.css" rel="stylesheet" type="text/css" />
 	<body>
+		<script>
+		$(function() {
+			// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+			$( "#dialog:ui-dialog" ).dialog( "destroy" );
+			
+			$( "#dialog-message" ).dialog({
+				autoOpen: false,
+				modal: true,
+				buttons: {
+					Ok: function() {
+						$( this ).dialog( "close" );
+						/* Create a new canvas and redirect */
+						$.getJSON('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + title.value,
+							function(data){
+								alert('./services/user_create_add_canvas.php?user_id=<?php echo $user_id;?>&description=' + title.value);
+								window.location = './canvas.php?canvas_id=' + data;
+							}
+						)},
+					Cancel:  function() {
+						$( this ).dialog( "close" );
+					}
+				}
+			});
+		});
+		
+		function create_canvas() {
+			$( "#dialog-message" ).dialog( "open" );
+		}
+		
+		</script>
+		<div id="dialog-message" title="Download complete">
+			<form>
+				<fieldset>
+					<label for="name">Title</label>
+					<input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all" />
+				</fieldset>
+			</form>
+		</div>
+
+
 		<div class="mainpage-header">
 			<div class="mainpage-userimage">
         				<img src="<?php echo $userImageUrl;?>" />
@@ -45,7 +85,7 @@
         			console.log('user id:' + <?php echo $user_id;?>);	
         		</script>	
         	</div>
-        	<div class="mainpage-createcanvas">
+        	<div class="mainpage-createcanvas" onclick="create_canvas()">
         		New
         	</div>
 		</div>
